@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <title>CTR Scores</title>
+        <style type="text/css">
+            form, table {
+                 display:inline;
+                 margin:0px;
+                 padding:0px;
+            }
+        </style>    
+    </head>
+    <body>
+
+        <h1>CTR Scores</h1>
+        <br>Benja</br>
+        <form method="post" action="/">
+            <input type="submit" value="+1" name="p1"/>
+            <input type="submit" value="-1" name="p1" />
+        </form>
+        <h3>Obreque</h3>
+        <form method="post" action="/">
+            <input type="submit" value="+1" name="p2"/>
+            <input type="submit" value="-1" name="p2" />
+        </form>
+        <h3>Lukas</h3>
+        <form method="post" action="/">
+            <input type="submit" value="+1" name="p3"/>
+            <input type="submit" value="-1" name="p3" />
+        </form>
+        <h3>Nico</h3>
+        <form method="post" action="/">
+            <input type="submit" value="+1" name="p4"/>
+            <input type="submit" value="-1" name="p4" />
+        </form>
+
+                <!--Jquery Cdn -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+ 
+  <script type="text/javascript">
+    $(document).on('submit','#p1',function(e)
+                   {
+      console.log('hello');
+      e.preventDefault();
+      $.ajax({
+        type:'POST',
+        url:'/',
+        data:{
+          todo:$("#todo").val()
+        },
+        success:function()
+        {
+          alert('saved');
+        }
+      })
+    });
+  </script>
+ 
+
+    </body>
+</html> 

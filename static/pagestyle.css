@@ -1,0 +1,21 @@
+form, table {
+  display:inline;
+  margin:0px;
+  padding:0px;
+}
+
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 1vw 2.4vw;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+}
+
+h3 {
+  font-size:5vw
+}

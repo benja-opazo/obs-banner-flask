@@ -123,4 +123,4 @@ def draw_banner(scores):
             print(crown_position)
             canvas.paste(crown,crown_position,mask=crown)
 
-    canvas.save('static/images/banner_scores.png')
+    canvas.save('static/output/banner_scores.png')

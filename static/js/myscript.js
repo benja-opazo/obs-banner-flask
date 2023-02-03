@@ -46,7 +46,7 @@ addEventListener("DOMContentLoaded", function() {
           $('.score-update-p2').text(response.scores.p2[0])
           $('.score-update-p3').text(response.scores.p3[0])
           $('.score-update-p4').text(response.scores.p4[0])
-          $('.score-update-img').attr('src', 'static/images/banner_scores.png' + '?' + new Date().getTime())
+          $('.score-update-img').attr('src', 'static/output/banner_scores.png' + '?' + new Date().getTime())
         }
       })
     })

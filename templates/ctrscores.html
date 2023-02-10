@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/materialize.css')}}"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+
+        <title>CTR Scores</title>
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#!" class="brand-logo">OBS Helper</a>
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="/">Inicio</a></li>
+                <li class="active"><a href="/ctrscores">CTR Scores</a></li>
+                <li><a href="/videos">Videos</a></li>
+                <li><a href="/imagenes">Imagenes</a></li>
+              </ul>
+            </div>
+          </nav>
+        
+          <ul class="sidenav" id="mobile-demo">
+            <li><a href="/">Inicio</a></li>
+            <li class="active"><a href="/ctrscores">CTR Scores</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="/imagenes">Imagenes</a></li>
+          </ul>
+                  
+
+    <div class='container'>
+            <div class="divider"></div>
+            <div class="section">
+                <h5 class="center-align"> CTR Scores </h5>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card-panel orange lighten-3 card-panel hoverable">
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center" type="submit" name="render" value="{{currentpage}}/render_scores">
+                                Save
+                            </button>
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="load" value="{{currentpage}}/load_scores">
+                                Load
+                            </button>
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="draw" value="{{currentpage}}/draw_banner">
+                                Draw
+                            </button>
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="reset" value="{{currentpage}}/reset_scores">
+                                Reset
+                            </button>
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="update" value="{{currentpage}}/update_scores">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>     
+
+                <div class="row">   
+                    {% for playernumber, name in players.items() %}
+                        <div class="col s6">
+                            {% set playernumber_int = playernumber[1] | int %}
+                            {% if playernumber_int % 4 == 1 or playernumber_int % 4 == 0  %}
+                                <div class="card-panel orange lighten-4 card-panel hoverable">
+                            {% else %}
+                                <div class="card-panel orange lighten-2 card-panel hoverable">
+                            {% endif %}
+
+                            <h5 class="center-align"> {{name}}</h5>
+                                {% for label, command in commands.items() %}
+                                    <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="score_button" value="{{currentpage}}/{{ command }}-{{ playernumber }}">
+                                        {% if label == '+1' %}
+                                            +1
+                                        {% elif label == '-1' %}
+                                            -1
+                                        {% endif %}
+                                    
+                                    </button>
+                                    {% if label == '+1' %}
+                                    <div class="score-update-{{ playernumber }}"> {{scores[playernumber][0]}}</div>
+                                    {% endif%}
+                                {% endfor %}
+                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 offset-m3">
+                    <img class="responsive-img center score-update-img" src="{{ url_for('static', filename='output/banner_scores.png') }}">
+                </div>
+            </div>            
+            <div class="divider"></div>
+
+        </div>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/myscript.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
+    </body>
+</html> 

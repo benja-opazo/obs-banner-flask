@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, jsonify
 import json
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
+from yt_dlp import YoutubeDL
+import os
 app = Flask(__name__)
 
 
@@ -12,7 +14,7 @@ AVAILABLE_COMMANDS = {
     '+1': plus,
     '-1': minus
 }
-p1, p2, p3, p4 = "Benja", "Obreque", "Jorge", "Nico"
+p1, p2, p3, p4 = "Benja", "Obreque", "Peters", "Nico"
 AVAILABLE_PLAYERS = {
     'p1': p1,
     'p2': p2,
@@ -27,14 +29,56 @@ scores = {
     "p4" : [0, AVAILABLE_PLAYERS['p4']],
 }
 
+# Dice el estado de la descarga de video. -1 no ha descargado nada, 0 error, 1 exito
+videostatus = -1
+
 scores_json = dict()
 
 @app.route('/', methods=['GET', 'POST'])
 def execute():
-    return render_template('index.html', commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
+    return render_template('index.html', currentpage="inicio")
 
-@app.route('/<cmd>')
-def command(cmd=None):
+@app.route('/ctrscores/', methods=['GET', 'POST'])
+def execute_ctrscores():
+    return render_template('ctrscores.html', currentpage="ctrscores", commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
+
+@app.route('/videos/', methods=['GET', 'POST'])
+def execute_videos():
+    return render_template('videos.html', currentpage="videos", videostatus=videostatus)
+
+@app.route('/videos/<cmd>')
+def videos_command(cmd=None):
+    global videostatus
+    if cmd =="submit_video":
+        if os.path.isfile('output/video.mp4'):
+            os.remove('output/video.mp4')
+
+        URLS = ['https://www.youtube.com/watch?v=adQw4w9WgXcQ']
+        ydl_opts = {
+            'format': 'mp4',
+            'outtmpl': 'output/video.mp4'
+        }
+        with YoutubeDL(ydl_opts) as ydl:
+            try:
+                ydl.download(URLS)
+                videostatus = 1
+            except:
+                videostatus = 0
+    elif cmd=="delete_video":
+        if os.path.isfile('output/video.mp4'):
+            os.remove('output/video.mp4')
+        videostatus = -1
+    elif cmd=="update_buttons":
+        if videostatus==1:
+            return jsonify(icon="done", theclass="green")
+        else:
+            return jsonify(icon="error", theclass="red")
+    return render_template('videos.html', currentpage="videos", videostatus=videostatus)
+
+
+
+@app.route('/ctrscores/<cmd>')
+def ctrscores_command(cmd=None):
     if cmd.find('-') > 0:
         score_delta, player = cmd.split('-')
         if (score_delta == 'plus'):
@@ -64,11 +108,9 @@ def command(cmd=None):
             draw_banner(scores)
 
         if cmd =='update_scores':
-            print("update")
+            #print("update")
             return jsonify(scores=scores)
-
-
-    return render_template('index.html', commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
+    return render_template('ctrscores.html', commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
 
 
 def draw_banner(scores):

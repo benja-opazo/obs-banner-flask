@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/materialize.css')}}"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+
+        <title>CTR Scores</title>
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#!" class="brand-logo">OBS Helper</a>
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul class="right hide-on-med-and-down">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/ctrscores">CTR Scores</a></li>
+                <li class="active"><a href="/videos">Videos</a></li>
+                <li><a href="/imagenes">Imagenes</a></li>
+              </ul>
+            </div>
+          </nav>
+        
+          <ul class="sidenav" id="mobile-demo">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/ctrscores">CTR Scores</a></li>
+            <li class="active"><a href="/videos">Videos</a></li>
+            <li><a href="/imagenes">Imagenes</a></li>
+          </ul>
+
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s8">
+                  <input placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="first_name" type="text" class="validate">
+                  <label for="first_name">URL Video</label>
+                </div>
+                <div class="input-field col s4">
+                    <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos" type="submit" name="submit_video" value="{{currentpage}}/submit_video">
+                        Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                    {% if videostatus == 0 %}
+                        <button class="command btn-small red accent-3 center videostatus-class" type="submit" name="submit_video_error update-btn-videos" value="{{currentpage}}/error">
+                            <i class="material-icons videostatus-icon">error</i>
+                        </button>
+                    {% else %}
+                        <button class="command btn-small green accent-3 center videostatus-class" type="submit" name="submit_video_success update-btn-videos" value="{{currentpage}}/success">
+                            <i class="material-icons videostatus-icon">done</i>
+                        </button>
+                    {% endif %}
+
+                    <button class="command waves-effect waves-light btn-small blue accent-3 center update-btn-videos" type="submit" name="submit_video_borrar" value="{{currentpage}}/delete_video">
+                        Borrar
+                    </button>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+    </body>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/myscript.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
+</html> 

@@ -36,9 +36,9 @@ addEventListener("DOMContentLoaded", function() {
 
   $(document).ready(function () {
 
-    $('.update-btn').click(function(){
+    $('.update-btn-ctrscores').click(function(){
       $.ajax({
-        url: '/update_scores',
+        url: '/ctrscores/update_scores',
         type: 'get',
         contentType: 'application/json',
         success: function(response) {
@@ -46,8 +46,30 @@ addEventListener("DOMContentLoaded", function() {
           $('.score-update-p2').text(response.scores.p2[0])
           $('.score-update-p3').text(response.scores.p3[0])
           $('.score-update-p4').text(response.scores.p4[0])
-          $('.score-update-img').attr('src', 'static/output/banner_scores.png' + '?' + new Date().getTime())
+          $('.score-update-img').attr('src', '/static/output/banner_scores.png' + '?' + new Date().getTime())
         }
       })
     })
 })  
+
+
+$(document).ready(function () {
+
+  $('.update-btn-videos').click(function(){
+    $.ajax({
+      url: '/videos/update_buttons',
+      type: 'get',
+      contentType: 'application/json',
+      success: function(response) {
+        $('.videostatus-icon').text(response.icon)
+        $('.videostatus-class').removeClass("green").addClass(response.theclass)
+        
+      }
+    })
+  })
+})  
+
+
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+});

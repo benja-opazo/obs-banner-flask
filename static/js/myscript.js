@@ -53,8 +53,20 @@ addEventListener("DOMContentLoaded", function() {
 })  
 
 
-$(document).ready(function () {
+$(document).ready(setInterval(function() {
+  $.ajax({
+    url: '/videos/update_buttons',
+    type: 'get',
+    contentType: 'application/json',
+    success: function(response) {
+      console.log(response); // Outputs a message to the Web Console
+      $('.videostatus-icon').text(response.icon)
+      $('.videostatus-class').removeClass("red").removeClass("green").removeClass("blue").addClass(response.theclass)
+    }
+  })
+}, 2500));
 
+$(document).ready(function () {
   $('.update-btn-videos').click(function(){
     $.ajax({
       url: '/videos/update_buttons',
@@ -62,14 +74,18 @@ $(document).ready(function () {
       contentType: 'application/json',
       success: function(response) {
         $('.videostatus-icon').text(response.icon)
-        $('.videostatus-class').removeClass("green").addClass(response.theclass)
-        
+        $('.videostatus-class').removeClass("red").removeClass("green").removeClass("blue").addClass(response.theclass)
       }
     })
   })
-})  
+});
 
 
 $(document).ready(function(){
   $('.sidenav').sidenav();
+});
+
+
+$(document).ready(function(){
+  $('.collapsible').collapsible();
 });

@@ -34,36 +34,82 @@
             <li><a href="/imagenes">Imagenes</a></li>
           </ul>
 
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s8">
-                  <input placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="first_name" type="text" class="validate">
-                  <label for="first_name">URL Video</label>
+          
+
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">ondemand_video</i>Video</div>
+              <div class="collapsible-body"><span>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="row">
+                      <div class="input-field col s8">
+                        <input placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="first_name" type="text" class="validate">
+                        <label for="first_name">URL Video</label>
+                      </div>
+                      <div class="input-field col s1">
+                        {% if videostatus == 0 %}
+                              <button class="command btn-small red accent-3 center videostatus-class update-btn-videos" type="submit" name="submit_video_error" value="{{currentpage}}/error">
+                                  <i class="material-icons videostatus-icon">error</i>
+                              </button>
+                          {% elif videostatus == 2 %}
+                              <button class="command btn-small blue accent-3 center videostatus-class update-btn-videos" type="submit" name="submit_video_success" value="{{currentpage}}/success">
+                                  <i class="material-icons videostatus-icon">sync</i>
+                              </button>
+                          {% else %}
+                              <button class="command btn-small green accent-3 center videostatus-class update-btn-videos" type="submit" name="submit_video_success" value="{{currentpage}}/success">
+                                  <i class="material-icons videostatus-icon">done</i>
+                              </button>
+                          {% endif %}
+                      </div>
+                      <div class="input-field col s3">
+                          <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos" type="submit" name="submit_video" value="{{currentpage}}/submit_video">
+                              Submit
+                              <i class="material-icons right">send</i>
+                          </button>
+                          <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos" type="submit" name="submit_video_borrar" value="{{currentpage}}/delete_video">
+                              Borrar
+                          </button>
+                      </div>
+                    </div>
+                    
+                  </form>
                 </div>
-                <div class="input-field col s4">
-                    <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos" type="submit" name="submit_video" value="{{currentpage}}/submit_video">
+              </span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">image</i>Image</div>
+              <div class="collapsible-body"><span>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="row">
+                      <form action="#">
+                        <div class="file-field input-field col s8">
+                          <div class="btn">
+                            <span>File</span>
+                            <input type="file">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                          </div>
+                        </div>
+                      </form>
+                    </div> 
+                  </form>
+                  <div class="input-field col s3">
+                    <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-images" type="submit" name="submit_image" value="{{currentpage}}/submit_image">
                         Submit
                         <i class="material-icons right">send</i>
                     </button>
-                    {% if videostatus == 0 %}
-                        <button class="command btn-small red accent-3 center videostatus-class" type="submit" name="submit_video_error update-btn-videos" value="{{currentpage}}/error">
-                            <i class="material-icons videostatus-icon">error</i>
-                        </button>
-                    {% else %}
-                        <button class="command btn-small green accent-3 center videostatus-class" type="submit" name="submit_video_success update-btn-videos" value="{{currentpage}}/success">
-                            <i class="material-icons videostatus-icon">done</i>
-                        </button>
-                    {% endif %}
-
-                    <button class="command waves-effect waves-light btn-small blue accent-3 center update-btn-videos" type="submit" name="submit_video_borrar" value="{{currentpage}}/delete_video">
+                    <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-images" type="submit" name="submit_image_borrar" value="{{currentpage}}/delete_image">
                         Borrar
                     </button>
                 </div>
-              </div>
-              
-            </form>
-          </div>
+                </div>                   
+              </span></div>
+            </li>
+          </ul>
+                
     </body>
 
     <!--JavaScript at end of body for optimized loading-->

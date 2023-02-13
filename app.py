@@ -29,7 +29,7 @@ scores = {
     "p4" : [0, AVAILABLE_PLAYERS['p4']],
 }
 
-# Dice el estado de la descarga de video. -1 no ha descargado nada, 0 error, 1 exito
+# Dice el estado de la descarga de video. -1 no ha descargado nada, 0 error, 1 exito, 2 descargando
 videostatus = -1
 
 scores_json = dict()
@@ -53,26 +53,32 @@ def videos_command(cmd=None):
         if os.path.isfile('output/video.mp4'):
             os.remove('output/video.mp4')
 
-        URLS = ['https://www.youtube.com/watch?v=adQw4w9WgXcQ']
+        URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
         ydl_opts = {
             'format': 'mp4',
-            'outtmpl': 'output/video.mp4'
+            'outtmpl': 'static/output/video.mp4'
         }
         with YoutubeDL(ydl_opts) as ydl:
             try:
+                videostatus = 2
                 ydl.download(URLS)
                 videostatus = 1
             except:
                 videostatus = 0
     elif cmd=="delete_video":
-        if os.path.isfile('output/video.mp4'):
-            os.remove('output/video.mp4')
+        if os.path.isfile('static/output/video.mp4'):
+            os.remove('static/output/video.mp4')
         videostatus = -1
     elif cmd=="update_buttons":
-        if videostatus==1:
-            return jsonify(icon="done", theclass="green")
+        print("Update button: " + str(videostatus))
+        if videostatus == 1 or videostatus == -1:
+            return jsonify(icon="done", theclass="green", videostatus = videostatus)
+        elif videostatus == 2:
+            return jsonify(icon="sync", theclass="blue", videostatus = videostatus)
+        #elif videostatus == 0:
+        #    return jsonify(icon="error", theclass="red")
         else:
-            return jsonify(icon="error", theclass="red")
+            return jsonify(icon="error", theclass="red", videostatus = videostatus)
     return render_template('videos.html', currentpage="videos", videostatus=videostatus)
 
 
@@ -99,7 +105,6 @@ def ctrscores_command(cmd=None):
         if cmd == 'load_scores':
             with open("score.json", "r") as openfile:
                 scores_json = json.load(openfile)
-                #print(scores_json)
                 for label in scores_json:
                     scores[label] = scores_json[label]
         if cmd =='reset_scores':
@@ -108,7 +113,6 @@ def ctrscores_command(cmd=None):
             draw_banner(scores)
 
         if cmd =='update_scores':
-            #print("update")
             return jsonify(scores=scores)
     return render_template('ctrscores.html', commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
 

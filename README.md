@@ -7,7 +7,7 @@ python -m venv .venv
 Then activate with
 
 ```
-.venv\Scripts\activate.bat
+.venv\Scripts\activate.ps1
 ```
 
 Install requirements.txt

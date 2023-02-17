@@ -53,19 +53,22 @@ addEventListener("DOMContentLoaded", function() {
 })  
 
 
+
+// Updates the icon every 1000 seconds
 $(document).ready(setInterval(function() {
   $.ajax({
     url: '/videos/update_buttons',
     type: 'get',
     contentType: 'application/json',
     success: function(response) {
-      console.log(response); // Outputs a message to the Web Console
       $('.videostatus-icon').text(response.icon)
       $('.videostatus-class').removeClass("red").removeClass("green").removeClass("blue").addClass(response.theclass)
     }
   })
-}, 2500));
+}, 1000));
 
+
+// Updates the icon on click
 $(document).ready(function () {
   $('.update-btn-videos').click(function(){
     $.ajax({
@@ -81,6 +84,23 @@ $(document).ready(function () {
 });
 
 
+// Submits video to flask
+$(document).ready(function () {
+  $('.submit-btn-videos').click(function(){
+    $.ajax({
+      url: '/videos/submit_video',
+      type: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify ($('.video-input-field').val()),
+      success: function(response) {
+      console.log($('.video-input-field').val()); // Outputs a message to the Web Console
+      }
+    })
+  })
+});
+
+
+// Side nav
 $(document).ready(function(){
   $('.sidenav').sidenav();
 });

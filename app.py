@@ -14,7 +14,7 @@ AVAILABLE_COMMANDS = {
     '+1': plus,
     '-1': minus
 }
-p1, p2, p3, p4 = "Benja", "Obreque", "Peters", "Nico"
+p1, p2, p3, p4 = "Benja", "Obreque", "Jorge", "Peters"
 AVAILABLE_PLAYERS = {
     'p1': p1,
     'p2': p2,
@@ -42,18 +42,18 @@ def execute():
 def execute_ctrscores():
     return render_template('ctrscores.html', currentpage="ctrscores", commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)
 
-@app.route('/videos/', methods=['GET', 'POST'])
+@app.route('/media/', methods=['GET', 'POST'])
 def execute_videos():
-    return render_template('videos.html', currentpage="videos", videostatus=videostatus)
+    return render_template('media.html', currentpage="videos", videostatus=videostatus)
 
-@app.route('/videos/<cmd>')
+@app.route('/media/<cmd>', methods=['GET', 'POST'])
 def videos_command(cmd=None):
     global videostatus
     if cmd =="submit_video":
+        URLS = [request.get_json()]
         if os.path.isfile('output/video.mp4'):
             os.remove('output/video.mp4')
-
-        URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
+        #URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
         ydl_opts = {
             'format': 'mp4',
             'outtmpl': 'static/output/video.mp4'
@@ -65,23 +65,21 @@ def videos_command(cmd=None):
                 videostatus = 1
             except:
                 videostatus = 0
+        return jsonify(videostatus = videostatus)
     elif cmd=="delete_video":
         if os.path.isfile('static/output/video.mp4'):
             os.remove('static/output/video.mp4')
         videostatus = -1
     elif cmd=="update_buttons":
-        print("Update button: " + str(videostatus))
         if videostatus == 1 or videostatus == -1:
             return jsonify(icon="done", theclass="green", videostatus = videostatus)
         elif videostatus == 2:
             return jsonify(icon="sync", theclass="blue", videostatus = videostatus)
-        #elif videostatus == 0:
-        #    return jsonify(icon="error", theclass="red")
+        elif videostatus == 0:
+            return jsonify(icon="error", theclass="red")
         else:
             return jsonify(icon="error", theclass="red", videostatus = videostatus)
-    return render_template('videos.html', currentpage="videos", videostatus=videostatus)
-
-
+    return render_template('media.html', currentpage="videos", videostatus=videostatus)
 
 @app.route('/ctrscores/<cmd>')
 def ctrscores_command(cmd=None):
@@ -166,7 +164,6 @@ def draw_banner(scores):
     if (score_max[0] > 0):
         for player in score_max[1]:
             crown_position = list(np.array(player_positions[player]) - np.array(crown_offsets))
-            print(crown_position)
             canvas.paste(crown,crown_position,mask=crown)
 
     canvas.save('static/output/banner_scores.png')

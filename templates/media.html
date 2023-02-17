@@ -21,8 +21,7 @@
               <ul class="right hide-on-med-and-down">
                 <li><a href="/">Inicio</a></li>
                 <li><a href="/ctrscores">CTR Scores</a></li>
-                <li class="active"><a href="/videos">Videos</a></li>
-                <li><a href="/imagenes">Imagenes</a></li>
+                <li class="active"><a href="/media">Media</a></li>
               </ul>
             </div>
           </nav>
@@ -30,8 +29,7 @@
           <ul class="sidenav" id="mobile-demo">
             <li><a href="/">Inicio</a></li>
             <li><a href="/ctrscores">CTR Scores</a></li>
-            <li class="active"><a href="/videos">Videos</a></li>
-            <li><a href="/imagenes">Imagenes</a></li>
+            <li class="active"><a href="/media">Media</a></li>
           </ul>
 
           
@@ -44,8 +42,8 @@
                   <form class="col s12">
                     <div class="row">
                       <div class="input-field col s8">
-                        <input placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="first_name" type="text" class="validate">
-                        <label for="first_name">URL Video</label>
+                        <input placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" id="video_input" type="text" class="validate video-input-field">
+                        <label for="video_input">URL Video</label>
                       </div>
                       <div class="input-field col s1">
                         {% if videostatus == 0 %}
@@ -63,7 +61,7 @@
                           {% endif %}
                       </div>
                       <div class="input-field col s3">
-                          <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos" type="submit" name="submit_video" value="{{currentpage}}/submit_video">
+                          <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-videos submit-btn-videos" type="submit" name="submit_video" value="{{currentpage}}/submit_video_b">
                               Submit
                               <i class="material-icons right">send</i>
                           </button>

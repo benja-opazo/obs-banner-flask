@@ -51,8 +51,8 @@ def videos_command(cmd=None):
     global videostatus
     if cmd =="submit_video":
         URLS = [request.get_json()]
-        if os.path.isfile('output/video.mp4'):
-            os.remove('output/video.mp4')
+        if os.path.isfile('static/output/video.mp4'):
+            os.remove('static/output/video.mp4')
         #URLS = ['https://www.youtube.com/watch?v=dQw4w9WgXcQ']
         ydl_opts = {
             'format': 'mp4',

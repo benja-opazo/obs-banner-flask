@@ -44,7 +44,7 @@ def execute_ctrscores():
 
 @app.route('/media/', methods=['GET', 'POST'])
 def execute_videos():
-    return render_template('media.html', currentpage="videos", videostatus=videostatus)
+    return render_template('media.html', currentpage="media", videostatus=videostatus)
 
 @app.route('/media/<cmd>', methods=['GET', 'POST'])
 def videos_command(cmd=None):
@@ -79,7 +79,7 @@ def videos_command(cmd=None):
             return jsonify(icon="error", theclass="red")
         else:
             return jsonify(icon="error", theclass="red", videostatus = videostatus)
-    return render_template('media.html', currentpage="videos", videostatus=videostatus)
+    return render_template('media.html', currentpage="media", videostatus=videostatus)
 
 @app.route('/ctrscores/<cmd>')
 def ctrscores_command(cmd=None):

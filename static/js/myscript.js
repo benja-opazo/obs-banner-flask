@@ -57,7 +57,7 @@ addEventListener("DOMContentLoaded", function() {
 // Updates the icon every 1000 seconds
 $(document).ready(setInterval(function() {
   $.ajax({
-    url: '/videos/update_buttons',
+    url: '/media/update_buttons',
     type: 'get',
     contentType: 'application/json',
     success: function(response) {
@@ -72,7 +72,7 @@ $(document).ready(setInterval(function() {
 $(document).ready(function () {
   $('.update-btn-videos').click(function(){
     $.ajax({
-      url: '/videos/update_buttons',
+      url: '/media/update_buttons',
       type: 'get',
       contentType: 'application/json',
       success: function(response) {
@@ -88,7 +88,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   $('.submit-btn-videos').click(function(){
     $.ajax({
-      url: '/videos/submit_video',
+      url: '/media/submit_video',
       type: 'post',
       contentType: 'application/json',
       data: JSON.stringify ($('.video-input-field').val()),

@@ -14,7 +14,7 @@ AVAILABLE_COMMANDS = {
     '+1': plus,
     '-1': minus
 }
-p1, p2, p3, p4 = "Benja", "Obreque", "Jorge", "Peters"
+p1, p2, p3, p4 = "Benja", "Obreque", "Lukas", "Nico"
 AVAILABLE_PLAYERS = {
     'p1': p1,
     'p2': p2,

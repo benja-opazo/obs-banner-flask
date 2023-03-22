@@ -1,3 +1,6 @@
+# Change to the directory where the Python app is located
+cd "$PSScriptRoot"
+
 # Create Venv if it does not exist
 If(!(test-path -PathType container .venv))
 {

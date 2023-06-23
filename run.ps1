@@ -15,6 +15,12 @@ If(!(test-path -PathType container .venv))
 # Install requirements
 pip install -r requirements.txt
 
+# Create directories
+$TMPDIR = "tmp"
+if(!(Test-Path -Path $TMPDIR )){
+      New-Item -ItemType directory -Path $TMPDIR
+}
+
 # Install Magick
 $TARGETDIR = 'magick'
 $TARGETFILE = 'magick/ImageMagick-7.1.1-11-portable-Q16-x64.zip'

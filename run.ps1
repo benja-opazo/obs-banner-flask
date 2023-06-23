@@ -1,3 +1,5 @@
+param ($env)
+
 # Change to the directory where the Python app is located
 cd "$PSScriptRoot"
 
@@ -13,5 +15,31 @@ If(!(test-path -PathType container .venv))
 # Install requirements
 pip install -r requirements.txt
 
+# Install Magick
+$TARGETDIR = 'magick'
+$TARGETFILE = 'magick/ImageMagick-7.1.1-11-portable-Q16-x64.zip'
+
+if(!(Test-Path -Path $TARGETDIR )){
+      New-Item -ItemType directory -Path $TARGETDIR
+}
+
+if(!(Test-Path -Path $TARGETFILE )){
+      $MagickURL = "https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-11-portable-Q16-x64.zip"
+      Invoke-WebRequest -URI $MagickURL -OutFile $TARGETFILE
+      Expand-Archive -LiteralPath $TARGETFILE -DestinationPath $TARGETDIR
+}
+
+$env:MAGICK_HOME="/magick"
+
+
 # Run Flask
-flask run --host=0.0.0.0
+if ($env -eq "dev")
+{
+      flask run --host=0.0.0.0 --debugger --reload
+}
+else
+{
+      flask run --host=0.0.0.0
+}
+
+

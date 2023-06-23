@@ -6,7 +6,14 @@ from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 from yt_dlp import YoutubeDL
 import os
+from wand.image import Image
+from fileinput import filename
+import filetype
+from ffmpeg import FFmpeg
+
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = "static/output/"
 
 
 plus, minus = "plus", "minus"
@@ -70,6 +77,37 @@ def videos_command(cmd=None):
         if os.path.isfile('static/output/video.mp4'):
             os.remove('static/output/video.mp4')
         videostatus = -1
+    elif cmd=="submit_file":
+            uploaded_file = request.files.get("file")
+            file_path = os.path.join("tmp/", uploaded_file.filename)
+
+            if uploaded_file != None:
+                uploaded_file.save(file_path)
+                # Convert to jpeg
+                if filetype.is_image(file_path):
+                    with Image(filename = file_path) as img:
+                        img.convert("jpg")
+                        img.save(filename="static/output/uploaded_img.jpg")
+                # Convert to mp4
+                if filetype.is_video(file_path):
+                        ffmpeg = (
+                        FFmpeg()
+                        .option("y")
+                        .input(file_path)
+                        .output(
+                            "static/output/uploaded_video.mp4",
+                            {"codec:v": "libx264"},
+                        )
+                        )
+
+                        ffmpeg.execute()
+                
+    elif cmd=="delete_file":
+        if os.path.isfile('static/output/uploaded_video.mp4'):
+                    os.remove('static/output/uploaded_video.mp4')
+        if os.path.isfile('static/output/uploaded_img.jpg'):
+            os.remove('static/output/uploaded_img.jpg')
+            
     elif cmd=="update_buttons":
         if videostatus == 1 or videostatus == -1:
             return jsonify(icon="done", theclass="green", videostatus = videostatus)

@@ -2,3 +2,6 @@ flask
 pillow
 numpy
 yt-dlp
+wand
+filetype
+python-ffmpeg

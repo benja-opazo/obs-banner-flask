@@ -93,7 +93,26 @@ $(document).ready(function () {
       contentType: 'application/json',
       data: JSON.stringify ($('.video-input-field').val()),
       success: function(response) {
-      console.log($('.video-input-field').val()); // Outputs a message to the Web Console
+      console.log($('.video-input-field').val()); 
+      }
+    })
+  })
+});
+
+// Submits image to flask
+$(document).ready(function () {
+  $('.submit-btn-files').click(function(){
+    var form_data = new FormData();
+    form_data.append('file', $('#file-upload').prop('files')[0]);
+    $.ajax({
+      type: 'POST',
+      url: '/media/submit_file',
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function(data) {
+      console.log(form_data);
       }
     })
   })

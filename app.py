@@ -6,7 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 from yt_dlp import YoutubeDL
 import os
-from wand.image import Image
+#from wand.image import Image
+from wand.image import Image as wand
 from fileinput import filename
 import filetype
 from ffmpeg import FFmpeg
@@ -85,7 +86,7 @@ def videos_command(cmd=None):
                 uploaded_file.save(file_path)
                 # Convert to jpeg
                 if filetype.is_image(file_path):
-                    with Image(filename = file_path) as img:
+                    with wand.Image(filename = file_path) as img:
                         img.convert("jpg")
                         img.save(filename="static/output/uploaded_img.jpg")
                 # Convert to mp4

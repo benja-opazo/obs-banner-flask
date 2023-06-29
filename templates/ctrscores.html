@@ -19,7 +19,7 @@
               <a href="#!" class="brand-logo">OBS Helper</a>
               <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
               <ul class="right hide-on-med-and-down">
-                <li><a href="/">Inicio</a></li>
+                <li><a href="/">Setup</a></li>
                 <li class="active"><a href="/ctrscores">CTR Scores</a></li>
                 <li><a href="/media">Media</a></li>
               </ul>
@@ -27,7 +27,7 @@
           </nav>
         
           <ul class="sidenav" id="mobile-demo">
-            <li><a href="/">Inicio</a></li>
+            <li><a href="/">Setup</a></li>
             <li class="active"><a href="/ctrscores">CTR Scores</a></li>
             <li><a href="/media">Media</a></li>
           </ul>
@@ -51,9 +51,6 @@
                             </button>
                             <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="reset" value="{{currentpage}}/reset_scores">
                                 Reset
-                            </button>
-                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="update" value="{{currentpage}}/update_scores">
-                                Update
                             </button>
                         </div>
                     </div>
@@ -98,7 +95,8 @@
         </div>
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-        <script src="{{url_for('static', filename='js/myscript.js')}}"></script>
         <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
+        <script src="{{url_for('static', filename='js/scores.js')}}"></script>
+        <script src="{{url_for('static', filename='js/common.js')}}"></script>
     </body>
 </html> 

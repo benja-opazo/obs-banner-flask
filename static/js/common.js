@@ -43,6 +43,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // collapsible
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.collapsible');
-  var instances = M.Collapsible.init(elems, {accordion: false, inDuration: 150, outDuration: 150});
-});
+  var options = {
+    accordion: false,
+    inDuration: 150,
+    outDuration: 150,
+    onOpenEnd: function(){
+      var carousel = document.querySelectorAll('.carousel');
+      var carouselInstances = M.Carousel.init(carousel, {duration: 150, indicators: true});
+    }
+  }
+  var instances = M.Collapsible.init(elems, options);
   
+});
+
+// carousel
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.carousel');
+  var instances = M.Carousel.init(elems, {duration: 200, indicators: true});
+});
+
+$(document).ready(function() {
+  $('input#banner_text').characterCounter();
+});

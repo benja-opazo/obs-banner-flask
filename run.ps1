@@ -23,14 +23,14 @@ if(!(Test-Path -Path $TMPDIR )){
 
 # Install Magick
 $TARGETDIR = 'magick'
-$TARGETFILE = 'magick/ImageMagick-7.1.1-11-portable-Q16-x64.zip'
+$TARGETFILE = 'magick/magick.zip'
 
 if(!(Test-Path -Path $TARGETDIR )){
       New-Item -ItemType directory -Path $TARGETDIR
 }
 
 if(!(Test-Path -Path $TARGETFILE )){
-      $MagickURL = "https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-11-portable-Q16-x64.zip"
+      $MagickURL = "https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-12-portable-Q8-x64.zip"
       Invoke-WebRequest -URI $MagickURL -OutFile $TARGETFILE
       Expand-Archive -LiteralPath $TARGETFILE -DestinationPath $TARGETDIR
 }

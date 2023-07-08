@@ -43,7 +43,22 @@ $(document).ready(function () {
   })
 });
 
-// Submits image to flask
+// Deletes video to flask
+$(document).ready(function () {
+  $('.delete-btn-videos').click(function(){
+    $.ajax({
+      url: '/media/delete_video',
+      type: 'post',
+      contentType: 'application/json',
+      //data: JSON.stringify ($('.video-input-field').val()),
+      success: function(response) {
+      console.log("Deleting Video"); 
+      }
+    })
+  })
+});
+
+// Submits uploaded image/video to flask
 $(document).ready(function () {
   $('.submit-btn-files').click(function(){
     var form_data = new FormData();
@@ -57,6 +72,21 @@ $(document).ready(function () {
       processData: false,
       success: function(data) {
       console.log(form_data);
+      }
+    })
+  })
+});
+
+// Deletes uploaded image/video to flask
+$(document).ready(function () {
+  $('.delete-btn-files').click(function(){
+    $.ajax({
+      url: '/media/delete_file',
+      type: 'post',
+      contentType: 'application/json',
+      //data: JSON.stringify ($('.video-input-field').val()),
+      success: function(response) {
+      console.log("Deleting File"); 
       }
     })
   })

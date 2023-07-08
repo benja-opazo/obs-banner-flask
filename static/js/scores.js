@@ -9,7 +9,6 @@ $(document).ready(function () {
           $('.score-update-p2').text(response.scores.p2[0])
           $('.score-update-p3').text(response.scores.p3[0])
           $('.score-update-p4').text(response.scores.p4[0])
-          delayed_img_update();
         }
       })
     })
@@ -30,3 +29,33 @@ $(document).ready(setInterval(function() {
       }
     })
   }, 1000));
+
+// These functions make the buttons with icons work
+$(document).ready(function () {
+  $('.send-btn-ctrscores').click(function(){
+    $.ajax({
+      url: '/ctrscores/draw_banner',
+      type: 'post',
+      contentType: 'application/json',
+      //data: JSON.stringify ($('.video-input-field').val()),
+      success: function(response) {
+      console.log("Drawing Scores"); 
+      }
+    })
+  })
+});
+
+$(document).ready(function () {
+  $('.delete-btn-ctrscores').click(function(){
+    $.ajax({
+      url: '/ctrscores/reset_scores',
+      type: 'post',
+      contentType: 'application/json',
+      //data: JSON.stringify ($('.video-input-field').val()),
+      success: function(response) {
+      console.log("Resetting Scores"); 
+      }
+    })
+  })
+});
+

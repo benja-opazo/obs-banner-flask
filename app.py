@@ -6,7 +6,6 @@ from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 from yt_dlp import YoutubeDL
 import os
-#from wand.image import Image
 from wand.image import Image as wand
 from fileinput import filename
 import filetype
@@ -86,7 +85,7 @@ def videos_command(cmd=None):
                 uploaded_file.save(file_path)
                 # Convert to jpeg
                 if filetype.is_image(file_path):
-                    with wand.Image(filename = file_path) as img:
+                    with wand(filename = file_path) as img:
                         img.convert("jpg")
                         img.save(filename="static/output/uploaded_img.jpg")
                 # Convert to mp4
@@ -120,7 +119,7 @@ def videos_command(cmd=None):
             return jsonify(icon="error", theclass="red", videostatus = videostatus)
     return render_template('media.html', currentpage="media", videostatus=videostatus)
 
-@app.route('/ctrscores/<cmd>')
+@app.route('/ctrscores/<cmd>', methods=['GET', 'POST'])
 def ctrscores_command(cmd=None):
     if cmd.find('-') > 0:
         score_delta, player = cmd.split('-')
@@ -131,24 +130,12 @@ def ctrscores_command(cmd=None):
         else:
             pass
     else:
-        if cmd == 'render_scores':
-            # Serializing json
-            json_object = json.dumps(scores, indent=4)
-            # Writing to sample.json
-            with open("score.json", "w") as outfile:
-                outfile.write(json_object)
         if cmd == 'draw_banner':
             draw_banner(scores)
-        if cmd == 'load_scores':
-            with open("score.json", "r") as openfile:
-                scores_json = json.load(openfile)
-                for label in scores_json:
-                    scores[label] = scores_json[label]
         if cmd =='reset_scores':
             for label in scores:
                 scores[label][0] = 0
             draw_banner(scores)
-
         if cmd =='update_scores':
             return jsonify(scores=scores)
     return render_template('ctrscores.html', commands=AVAILABLE_COMMANDS, players=AVAILABLE_PLAYERS, scores=scores)

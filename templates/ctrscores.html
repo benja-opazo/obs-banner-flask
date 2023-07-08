@@ -40,17 +40,11 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="card-panel orange lighten-3 card-panel hoverable">
-                            <button class="command waves-effect waves-light btn-small orange accent-3 center" type="submit" name="render" value="{{currentpage}}/render_scores">
-                                Save
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores send-btn-ctrscores" type="submit" name="draw" value="{{currentpage}}/draw_banner">
+                                <i class="material-icons center">send</i>
                             </button>
-                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="load" value="{{currentpage}}/load_scores">
-                                Load
-                            </button>
-                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="draw" value="{{currentpage}}/draw_banner">
-                                Draw
-                            </button>
-                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="reset" value="{{currentpage}}/reset_scores">
-                                Reset
+                            <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores delete-btn-ctrscores" type="submit" name="reset" value="{{currentpage}}/reset_scores">
+                                <i class="material-icons center">delete</i>
                             </button>
                         </div>
                     </div>
@@ -70,9 +64,9 @@
                                 {% for label, command in commands.items() %}
                                     <button class="command waves-effect waves-light btn-small orange accent-3 center update-btn-ctrscores" type="submit" name="score_button" value="{{currentpage}}/{{ command }}-{{ playernumber }}">
                                         {% if label == '+1' %}
-                                            +1
+                                        <i class="material-icons center">exposure_plus_1</i>
                                         {% elif label == '-1' %}
-                                            -1
+                                        <i class="material-icons center">exposure_neg_1</i>
                                         {% endif %}
                                     
                                     </button>
